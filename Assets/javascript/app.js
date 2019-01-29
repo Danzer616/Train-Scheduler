@@ -15,24 +15,23 @@ var elTrainDestination = $("#train-destination");
 var elTrainTime = $("#train-time").mask("00:00");
 var elTimeFreq = $("#time-freq").mask("00");
 
-// Initialize Firebase
-var config = {
-apiKey: "AIzaSyBEc95Ko22nJF0obmPj4ENnmW4RYJ2RtjI",
-authDomain: "train-scheduler-926da.firebaseapp.com",
-databaseURL: "https://train-scheduler-926da.firebaseio.com",
-projectId: "train-scheduler-926da",
-storageBucket: "train-scheduler-926da.appspot.com",
-messagingSenderId: "1081588299578"
-};
-
-firebase.initializeApp(config);
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBEc95Ko22nJF0obmPj4ENnmW4RYJ2RtjI",
+    authDomain: "train-scheduler-926da.firebaseapp.com",
+    databaseURL: "https://train-scheduler-926da.firebaseio.com",
+    projectId: "train-scheduler-926da",
+    storageBucket: "train-scheduler-926da.appspot.com",
+    messagingSenderId: "1081588299578"
+  };
+  firebase.initializeApp(config);
 
 console.log(firebase);
 
 // Assign the reference to the database to a variable named 'database'
 var database = firebase.database();
 
-database.ref("/trains").on("child_added", function(snapshot) {
+database.ref("/trainsceduler").on("child_added", function(snapshot) {
 
     //  create local variables to store the data from firebase
     var trainDiff = 0;
@@ -76,7 +75,7 @@ database.ref("/trains").on("child_added", function(snapshot) {
     // STARTED BONUS TO REMOVE ITEMS ** not finished **
     $("#table-data").on("click", "tr span", function() {
         console.log(this);
-        var trainRef = database.ref("/trains/");
+        var trainRef = database.ref("/trainscheduler/");
         console.log(trainRef);
     });
 });
@@ -93,7 +92,7 @@ var storeInputs = function(event) {
     trainFrequency = elTimeFreq.val().trim();
 
     // add to firebase databse
-    database.ref("/trains").push({
+    database.ref("/trainscheduler").push({
         name: trainName,
         destination: trainDestination,
         time: trainTime,
